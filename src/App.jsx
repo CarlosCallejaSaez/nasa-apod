@@ -1,24 +1,37 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Heading, Input, Text,Center } from '@chakra-ui/react';
+import { Select,Box, Heading, Input, Text,Center } from '@chakra-ui/react';
 import Figure from './components/Figure';
 
 function App() {
   const today = new Date().toISOString().slice(0, 10);
   const [date, setDate] = useState(today);
   const [data, setData] = useState([]);
+  const [dataMars, setDataMars] = useState([]);
+  const [api, setApi] = useState("apod");
 
   const NASA_API_KEY = "ss9M5D2dUzV3Ppryxhsm56x71CcG7OTQfrrwC9U4";
 
-  const baseUrl = `https://api.nasa.gov/planetary/apod?api_key=${NASA_API_KEY}&date=${date}&hd=true`;
+  const baseUrlApod = `https://api.nasa.gov/planetary/apod?api_key=${NASA_API_KEY}&date=${date}&hd=true`;
+  const baseUrlMars= `https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?earth_date=${date}&api_key=${NASA_API_KEY}`
 
   useEffect(() => {
+    if (api === "apod"){
     const APODFetching = async () => {
-      const response = await fetch(baseUrl);
+      const response = await fetch(baseUrlApod);
       const data = await response.json();
       setData(data);
     };
-    APODFetching();
-  }, [date]);
+    APODFetching();}
+    else if(api === "mars"){
+      const marsFetching =async () =>{
+        const response = await fetch(baseUrlMars);
+      const data = await response.json();
+      setDataMars(data.photos[0]);
+      console.log("mars",data)
+      }
+      marsFetching()
+  }
+  }, [api,date]);
 
   const handleInput = (ev) => {
     setDate(ev.target.value);
@@ -26,6 +39,10 @@ function App() {
 
   return (
     <Box p={4}>
+      <Select placeholder='Selecciona API'  onChange={(ev) => setApi(ev.target.value)}>
+  <option value='apod'>Apod</option>
+  <option value='mars'>Mars</option>
+</Select>
       <Heading as="h1" size="xl" mb={4} textAlign="center">
         Imagen astronómica del día
       </Heading>
@@ -33,13 +50,17 @@ function App() {
       <Center>
       <Input type="date" max={today} onChange={handleInput} mb={2} size="sm" textAlign="center" width="200px"/>
       </Center>
-      <Figure
-        title={data.title}
-        url={data.url}
-        explanation={data.explanation}
-        copyright={data.copyright}
-        media_type={data.media_type}
-      />
+
+      {api==="apod" && <Figure data={data}/> }
+      {api==="mars" && <Figure dataMars={dataMars} />}
+      
+
+     
+
+
+
+
+      
     </Box>
   );
 }
