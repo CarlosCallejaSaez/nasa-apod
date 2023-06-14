@@ -19,8 +19,7 @@ const Figure = ({data,dataMars}) => {
 
   if(dataMars){
     return (<div className='mars'>
-        <img src={dataMars.img_src}/>
-        <h2>{dataMars.camera.name}</h2>  
+        <img src={dataMars.img_src}/>  
         </div>
 
     )
