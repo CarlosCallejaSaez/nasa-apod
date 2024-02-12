@@ -34,7 +34,7 @@ const Figure = ({ data, dataMars }) => {
       }}>
           © {data.copyright}
         </Text>
-      <Text textAlign="center" size={"lg"}  px={2} maxWidth="70%" color="whiteAlpha.900" style={{
+      <Text textAlign="center" size={"lg"}  px={2} maxWidth="70%" color="blackAlpha.900" style={{
         background: 'linear-gradient(rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2))',
         backdropFilter: 'blur(1000px)',
         borderRadius: '10px', 
