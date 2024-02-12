@@ -15,9 +15,10 @@
     "@emotion/styled": "^11.11.0",
     "axios": "^1.4.0",
     "chakra": "^0.0.3",
-    "framer-motion": "^10.12.16",
+    "framer-motion": "^10.18.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-player": "^2.14.1"
   },
   "devDependencies": {
     "@types/react": "^18.0.37",
